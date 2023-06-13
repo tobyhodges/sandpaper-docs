@@ -1,74 +1,95 @@
 ---
-title: "Using RMarkdown"
-teaching: 10
+title: "EXAMPLE: Using RMarkdown"
+teaching: 5
 exercises: 2
 ---
 
-# Introduction
+:::::::::::::::::::::::::::::::::::::: questions 
 
-This is the new Carpentries template. It is written in [RMarkdown][r-markdown],
-which is a variant of Markdown that allows you to render code inside the
-lesson. Please refer to the [lesson
-example](https://carpentries.github.io/lesson-example) for full documentation.
-
-What you need to know is that there are three block quotes required for a valid
-Carpentries lesson template:
-
- 1. `questions` These are displayed at the beginning of the episode to prime the
-    learner for the content.
- 2. `objectives` These are the learning objectives for an episode
- 3. `keypoints` These are displayed at the end of the episode to reinforce the
-    objectives.
-
-No matter where these blocks appear, they will always be placed at the right
-part of the html page.
-
-
-:::::::::::::::: questions :::::::::::::::::::::
-
-- How do you write a lesson using RMarkdown and `{sandpaper}`?
+- How do you write a lesson using R Markdown and `{sandpaper}`?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-:::::::::::::::: objectives ::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::: objectives
 
 - Explain how to use markdown with the new lesson template
 - Demonstrate how to include pieces of code, figures, and nested challenge blocks
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-:::::::::::::::: keypoints :::::::::::::::::::::
+## Introduction
 
-- Use `.Rmd` files for lessons even if you don't need to generate any code
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+This is a lesson created via The Carpentries Workbench. It is written in
+[Pandoc-flavored Markdown][pandoc] for static files and
+[R Markdown][r-markdown] for dynamic files that can render code into output. 
+Please refer to the [Introduction to The Carpentries 
+Workbench][carpentries-workbench] for full documentation.
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+What you need to know is that there are three sections required for a valid
+Carpentries lesson template:
 
-::::::::::::::: challenge ::::::::::::::::::::::
+ 1. `questions` are displayed at the beginning of the episode to prime the
+    learner for the content.
+ 2. `objectives` are the learning objectives for an episode displayed with
+    the questions.
+ 3. `keypoints` are displayed at the end of the episode to reinforce the
+    objectives.
 
-## Challenge 1: Can you do it?
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
-What is the output of this command?
+Inline instructor notes can help inform instructors of timing challenges
+associated with the lessons. They appear in the "Instructor View"
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+### Code fences
+
+Code fences written in standard markdown format will be highlighted, but not
+evaluated:
+
+```bash
+echo '47 + 2' | bc
+echo '47 * 2' | bc
+```
+
+Code fences written using R Markdown chunk notation will be highlighted and 
+executed:
 
 
 ```r
-paste("This", "new", "template", "looks", "good")
+magic <- sprintf("47 plus 2 equals %d\n47 times 2 equals %d", 47 + 2, 47 * 2) 
+cat(magic)
+```
+
+```{.output}
+47 plus 2 equals 49
+47 times 2 equals 94
+```
+
+It's magic!
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+### Challenge 1: Can you do it?
+
+What is the output of this command?
+
+```r
+paste("This", "new", "lesson", "looks", "good")
 ```
 
 :::::::::::::::::::::::: solution 
 
-## Output
+### Output
  
-
-```{.output}
-[1] "This new template looks good"
+```output
+[1] "This new lesson looks good"
 ```
 
 :::::::::::::::::::::::::::::::::
 
 
-## Challenge 2: how do you nest solutions within challenge blocks?
+### Challenge 2: how do you nest solutions within challenge blocks?
 
 :::::::::::::::::::::::: solution 
 
@@ -77,9 +98,9 @@ You can add a line with at least three colons and a `solution` tag.
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-# Figures
+## Figures
 
-You can also include figures:
+You can also include figures generated from R Markdown:
 
 
 ```r
@@ -91,10 +112,53 @@ pie(
 )
 ```
 
-<img src="fig/example-rendered-pyramid-1.png" title="plot of chunk pyramid" alt="plot of chunk pyramid" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="fig/example-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid"  />
+<p class="caption">Sun arise each and every morning</p>
+</div>
+
+Or you can use standard markdown for static figures with the following syntax:
+
+`![optional caption that appears below the figure](figure url){alt='alt text for
+accessibility purposes'}`
+
+For example:
+
+`![You belong in The Carpentries!](fig/Badge_Carpentries.svg){alt='Blue Carpentries hex person logo with no text.'}`
+
+![You belong in The Carpentries!](fig/Badge_Carpentries.svg){alt='Blue Carpentries hex person logo with no text.'}
+
+[Additional attributes can be specified for the image](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Img#attributes)
+alongside the alternative text description in the `{}`.
+Some, like `width` and `height`, can be specified directly:
+
+`![You belong in The Carpentries!](fig/Badge_Carpentries.svg){alt='Blue Carpentries hex person logo with no text.' width='25%'}`
+
+![You belong in The Carpentries!](fig/Badge_Carpentries.svg){alt='Blue Carpentries hex person logo with no text.' width='25%'}
+
+:::::::::::: callout
+
+## :art: Advanced Image Styling
+
+More complex styling with arbitrary CSS is also possible within the Workbench,
+by providing CSS directives (separated by `;`) to a `style` attribute inside the `{}`.
+
+However, you should be aware that _all styling must be described in this `style` attribute
+if it is present_, i.e. `width` and `height` must be included as CSS directives
+_within the `style` attribute_ when it is used.
+
+For example, to introduce some padding around the resized image:
+
+`![You belong in The Carpentries!](fig/Badge_Carpentries.svg){alt='Blue Carpentries hex person logo with no text.' style='padding:10px; width:25%'}`
+
+![You belong in The Carpentries!](fig/Badge_Carpentries.svg){alt='Blue Carpentries hex person logo with no text.' style='padding:10px; width:25%'}
+
+Note the use of `:` for the key-value pairs of CSS directives defined within `style`.
+
+::::::::::::::::::::
 
 
-# Math
+## Math
 
 One of our episodes contains $\LaTeX$ equations when describing how to create
 dynamic reports with {knitr}, so we now use mathjax to describe this:
@@ -103,54 +167,12 @@ dynamic reports with {knitr}, so we now use mathjax to describe this:
 
 Cool, right?
 
-<!-- Please do not delete anything below this line -->
+::::::::::::::::::::::::::::::::::::: keypoints 
 
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
 
-[cc-by-human]: https://creativecommons.org/licenses/by/4.0/
-[cc-by-legal]: https://creativecommons.org/licenses/by/4.0/legalcode
-[ci]: http://communityin.org/
-[coc-reporting]: https://docs.carpentries.org/topic_folders/policies/incident-reporting.html
-[coc]: https://docs.carpentries.org/topic_folders/policies/code-of-conduct.html
-[concept-maps]: https://carpentries.github.io/instructor-training/05-memory/
-[contrib-covenant]: https://contributor-covenant.org/
-[contributing]: {{ repo_url }}/blob/{{ source_branch }}/CONTRIBUTING.md
-[cran-checkpoint]: https://cran.r-project.org/package=checkpoint
-[cran-knitr]: https://cran.r-project.org/package=knitr
-[cran-stringr]: https://cran.r-project.org/package=stringr
-[dc-lessons]: http://www.datacarpentry.org/lessons/
-[email]: mailto:team@carpentries.org
-[github-importer]: https://import.github.com/
-[importer]: https://github.com/new/import
-[jekyll-collection]: https://jekyllrb.com/docs/collections/
-[jekyll-install]: https://jekyllrb.com/docs/installation/
-[jekyll-windows]: http://jekyll-windows.juthilo.com/
-[jekyll]: https://jekyllrb.com/
-[jupyter]: https://jupyter.org/
-[kramdown]: https://kramdown.gettalong.org/
-[lc-lessons]: https://librarycarpentry.org/lessons/
-[lesson-aio]: {{ relative_root_path }}{% link aio.md %}
-[lesson-coc]: {{ relative_root_path }}{% link CODE_OF_CONDUCT.md %}
-[lesson-example]: https://carpentries.github.io/lesson-example/
-[lesson-license]: {{ relative_root_path }}{% link LICENSE.md %}
-[lesson-mainpage]: {{ relative_root_path }}{% link index.md %}
-[lesson-reference]: {{ relative_root_path }}{% link reference.md %}
-[lesson-setup]: {{ relative_root_path }}{% link setup.md %}
-[mit-license]: https://opensource.org/licenses/mit-license.html
-[morea]: https://morea-framework.github.io/
-[numfocus]: https://numfocus.org/
-[osi]: https://opensource.org
-[pandoc]: https://pandoc.org/
-[paper-now]: https://github.com/PeerJ/paper-now
-[python-gapminder]: https://swcarpentry.github.io/python-novice-gapminder/
-[pyyaml]: https://pypi.python.org/pypi/PyYAML
-[r-markdown]: https://rmarkdown.rstudio.com/
-[rstudio]: https://www.rstudio.com/
-[ruby-install-guide]: https://www.ruby-lang.org/en/downloads/
-[ruby-installer]: https://rubyinstaller.org/
-[rubygems]: https://rubygems.org/pages/download/
-[styles]: https://github.com/carpentries/styles/
-[swc-lessons]: https://software-carpentry.org/lessons/
-[swc-releases]: https://github.com/swcarpentry/swc-releases
-[training]: https://carpentries.github.io/instructor-training/
-[workshop-repo]: {{ site.workshop_repo }}
-[yaml]: http://yaml.org/
+::::::::::::::::::::::::::::::::::::::::::::::::
+
