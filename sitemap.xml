@@ -10,6 +10,9 @@
     <loc>https://carpentries.github.io/sandpaper-docs/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://carpentries.github.io/sandpaper-docs/aio.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries.github.io/sandpaper-docs/branches.html</loc>
   </url>
   <url>
@@ -34,6 +37,9 @@
     <loc>https://carpentries.github.io/sandpaper-docs/github-pat.html</loc>
   </url>
   <url>
+    <loc>https://carpentries.github.io/sandpaper-docs/images.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries.github.io/sandpaper-docs/index.html</loc>
   </url>
   <url>
@@ -44,6 +50,9 @@
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper-docs/instructor/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/sandpaper-docs/instructor/aio.html</loc>
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper-docs/instructor/component-guide.html</loc>
@@ -64,10 +73,19 @@
     <loc>https://carpentries.github.io/sandpaper-docs/instructor/github-pat.html</loc>
   </url>
   <url>
+    <loc>https://carpentries.github.io/sandpaper-docs/instructor/images.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries.github.io/sandpaper-docs/instructor/index.html</loc>
   </url>
   <url>
+    <loc>https://carpentries.github.io/sandpaper-docs/instructor/instructor-notes.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries.github.io/sandpaper-docs/instructor/introduction.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/sandpaper-docs/instructor/key-points.html</loc>
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper-docs/instructor/profiles.html</loc>
@@ -82,10 +100,16 @@
     <loc>https://carpentries.github.io/sandpaper-docs/instructor/update.html</loc>
   </url>
   <url>
+    <loc>https://carpentries.github.io/sandpaper-docs/instructor-notes.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries.github.io/sandpaper-docs/instructor.html</loc>
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper-docs/introduction.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/sandpaper-docs/key-points.html</loc>
   </url>
   <url>
     <loc>https://carpentries.github.io/sandpaper-docs/maintainer.html</loc>
