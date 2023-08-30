@@ -153,7 +153,7 @@ Your new episode needs a title!
 1. Open the new episode in your editor
 2. edit the title
 3. add the episode to the `config.yaml`
-4. preview it with `sandpaper::build_lesson()`/<kbd>ctrl + shift + k</kbd>.
+4. preview it with `sandpaper::build_lesson()` or using the <kbd>ctrl + shift + k</kbd> keyboard shortcut.
 
 Did the new title show up?
 
@@ -272,7 +272,7 @@ View" button at the top right, and then selecting "Instructor View" from the
 dropdown. You can also add `instructor/` after the lesson URL (e.g. in this
 lesson, the URL is `https://carpentries.github.io/sandpaper-docs/episodes.html`;
 to switch to the instructor view manually, you can use 
-`https://carpentries.github.io/sandpaper-docs/instructor/episodes.html`. 
+`https://carpentries.github.io/sandpaper-docs/instructor/episodes.html`). 
 
 
 ::::::::::::::: challenge
@@ -328,7 +328,7 @@ You can also include _any markdown elements_ like `code blocks`
 
 ## Exercises/Challenges
 
-the method of creating callout blocks with fences can help us create solution
+The method of creating callout blocks with fences can help us create solution
 blocks nested within challenge blocks. Much like a [toast
 sandwich](https://en.wikipedia.org/wiki/Toast_sandwich), we can layer blocks
 inside blocks by adding more layers. For example, here's how I would create a
@@ -362,7 +362,7 @@ A: part of the precipitate
 :::::::::::::::::::::::::
 :::::::::::::::::::::::::::::::::::::::::::::::
 
-To add more solutions, you close the first solution and add more text:
+To add more content to the challenge, you close the first solution and add more text:
 
 ::::::::::::::::::::::::::::::::::::: challenge
 
@@ -421,6 +421,68 @@ Yes! It is a valid fenced div for the following reasons:
 
 :::::::::::::::::::::::::::::::::::::::::::::::::
 
+::::::::::::::::::::::::::::::::::::::::::::::: callout
+
+## :beetle: Known Quirk: Floating Solution Blocks
+
+`solution` divs can be added to a lesson without an accompanying `challenge` div
+e.g. as an expandable block of "spoiler" or "details" information,
+or as the solution to a `discussion` div.
+When not attached to a `challenge` div, the formatted `solution` block
+will be displayed with too much "buoyancy" 
+i.e. floating too high and obscuring some of the preceding content.
+
+This issue will be resolved in a future release,
+but for now a workaround is to 
+include an empty div with some margin spacing defined at the bottom
+before the `solution` fenced div in the lesson content.
+For example:
+
+```markdown
+Expand the box below for a surprise.
+
+:::::::::::::::::::::::::::::::::::::::: {.empty-div style="margin-bottom: 50px"}
+
+
+<!-- This div is intentionally empty to allow the solution to float alone-->
+
+
+::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::::: solution
+
+![A randomly selected picture of a kitten.
+](https://placekitten.com/300/300){
+alt='A random picture of a cute kitten'
+width='33%'
+}
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::
+```
+
+Expand the box below for a surprise.
+
+:::::::::::::::::::::::::::::::::::::::: {.empty-div style="margin-bottom: 50px"}
+
+
+<!-- This div is intentionally empty to allow the solution to float alone-->
+
+
+::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::::: solution
+
+![A randomly selected picture of a kitten.
+](https://placekitten.com/300/300){
+alt='A random picture of a cute kitten'
+width='33%'
+}
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
 ## Code Blocks with Syntax Highlighting
 
 To include code examples in your lesson, you can wrap it in three backticks like
@@ -460,6 +522,7 @@ print("this is a {} code block".format(thing))
 ```
 
 To indicate that a code block is an output block, you can use the label "output":
+
 Input:
 
 ````markdown
@@ -504,6 +567,28 @@ and right, respectively.
 
 [pipe-table-syntax]: https://pandoc.org/MANUAL.html#extension-pipe_tables
 
+```markdown
+Table: Four fruits with color and price in imaginary dollars
+
+| fruit     | color                | price    |
+| ------    | :--------------:     | -------: |
+| apple     | :red_square:         | \$2.05   |
+| pear      | :green_square:       | \$1.37   |
+| orange    | :orange_square:      | \$3.09   |
+| catfruit  | :black_large_square: | \$999.99 |
+```
+
+Table: Four fruits with color and price in imaginary dollars
+
+| fruit     | color                | price    |
+| ------    | :--------------:     | -------: |
+| apple     | :red_square:         | \$2.05   |
+| pear      | :green_square:       | \$1.37   |
+| orange    | :orange_square:      | \$3.09   |
+| catfruit  | :black_large_square: | \$999.99 |
+
+You can see that we now have a caption associated with the table.
+
 :::::::::::::: callout
 
 ### Table alignment best practises
@@ -523,28 +608,6 @@ contents at a glance.
 
 ::::::::::::::::::::::
 
-
-```markdown
-Table: Four fruits with color and price in imaginary dollars
-
-| fruit  | color            | price    |
-| ------ | :--------------: | -------: |
-| apple  | :red_square:     | \$2.05   |
-| pear   | :green_square:   | \$1.37   |
-| orange | :orange_square:  | \$3.09   |
-| devil  | :purple_square:  | \$666.00 |
-```
-
-Table: Four fruits with color and price in imaginary dollars
-
-| fruit  | color            | price    |
-| ------ | :--------------: | -------: |
-| apple  | :red_square:     | \$2.05   |
-| pear   | :green_square:   | \$1.37   |
-| orange | :orange_square:  | \$3.09   |
-| devil  | :purple_square:  | \$666.00 |
-
-You can see that we now have a caption associated with The table
 Because it is a narrow table, the columns fit exactly to the contents. If we
 added a fourth, longer column (e.g. a description), then the table looks a bit
 wonky:
@@ -552,27 +615,27 @@ wonky:
 ```markdown
 Table: Four fruits with color, price in imaginary dollars, and description
 
-| fruit  | color            | price    | description |
-| ------ | :--------------: | -------: | ----------- |
-| apple  | :red_square:     | \$2.05   | a short, round-ish red fruit that is slightly tapered at one end. It tastes sweet and crisp like a fall day |
-| pear   | :green_square:   | \$1.37   | a bell-shaped green fruit whose taste is sweet and mealy like a cold winter afternoon | 
-| orange | :orange_square:  | \$3.09   | a round orange fruit with a dimply skin-like peel that you must remove before eating. It tastes of sweet and sour lazy summer days |
-| devil  | :purple_square:  | \$666.00 | a round purple fruit with complex swirls along its skin. It is said to taste terrible and give you mysterious powers |
+| fruit     | color                | price    | description |
+| ------    | :--------------:     | -------: | ----------- |
+| apple     | :red_square:         | \$2.05   | a short, round-ish red fruit that is slightly tapered at one end. It tastes sweet and crisp like a fall day |
+| pear      | :green_square:       | \$1.37   | a bell-shaped green fruit whose taste is sweet and mealy like a cold winter afternoon    | 
+| orange    | :orange_square:      | \$3.09   | a round orange fruit with a dimply skin-like peel that you must remove before eating. It tastes of sweet and sour lazy summer days |
+| catfruit  | :black_large_square: | \$999.99 | an oblong fruit covered with thick black fuzz. It likes to sit on your keyboard and meow at you when you're trying to work |
 ```
 
 Table: Four fruits with color and price in imaginary dollars
 
-| fruit  | color            | price    | description |
-| ------ | :--------------: | -------: | ----------- |
-| apple  | :red_square:     | \$2.05   | a short, round-ish red fruit that is slightly tapered at one end. It tastes sweet and crisp like a fall day |
-| pear   | :green_square:   | \$1.37   | a bell-shaped green fruit whose taste is sweet and mealy like a cold winter afternoon | 
-| orange | :orange_square:  | \$3.09   | a round orange fruit with a dimply skin-like peel that you must remove before eating. It tastes of sweet and sour lazy summer days |
-| devil  | :purple_square:  | \$666.00 | a round purple fruit with complex swirls along its skin. It is said to taste terrible and give you mysterious powers |
+| fruit     | color                | price    | description |
+| ------    | :--------------:     | -------: | ----------- |
+| apple     | :red_square:         | \$2.05   | a short, round-ish red fruit that is slightly tapered at one end. It tastes sweet and crisp like a fall day |
+| pear      | :green_square:       | \$1.37   | a bell-shaped green fruit whose taste is sweet and mealy like a cold winter afternoon    | 
+| orange    | :orange_square:      | \$3.09   | a round orange fruit with a dimply skin-like peel that you must remove before eating. It tastes of sweet and sour lazy summer days |
+| catfruit  | :black_large_square: | \$999.99 | an oblong fruit covered with thick black fuzz. It likes to sit on your keyboard and meow at you when you're trying to work |
 
 
 If we want to adjust the size of the columns, we need to change the lengths of
 the number of dashes separating the header from the body (as described in 
-[pandoc's guide for tables][pipe-table-syntax]. 
+[pandoc's guide for tables][pipe-table-syntax]). 
 
 Notice how the pipe characters (`|`) do not necessarily have to line up to 
 produce a table.
@@ -581,22 +644,22 @@ produce a table.
 ```markdown
 Table: Four fruits with color, price in imaginary dollars, and description
 
-| fruit  | color            | price    | description                 |
-| ----   | :-:              | ---:     | --------------------------- |
-| apple  | :red_square:     | \$2.05   | a short, round-ish red fruit that is slightly tapered at one end. It tastes sweet and crisp like a fall day |
-| pear   | :green_square:   | \$1.37   | a bell-shaped green fruit whose taste is sweet and mealy like a cold winter afternoon | 
-| orange | :orange_square:  | \$3.09   | a round orange fruit with a dimply skin-like peel that you must remove before eating. It tastes of sweet and sour lazy summer days |
-| devil  | :purple_square:  | \$666.00 | a round purple fruit with complex swirls along its skin. It is said to taste terrible and give you mysterious powers |
+| fruit     | color                | price    | description                 |
+| ----      | :-:                  | ---:     | --------------------------- |
+| apple     | :red_square:         | \$2.05   | a short, round-ish red fruit that is slightly tapered at one end. It tastes sweet and crisp like a fall day |
+| pear      | :green_square:       | \$1.37   | a bell-shaped green fruit whose taste is sweet and mealy like a cold winter afternoon    | 
+| orange    | :orange_square:      | \$3.09   | a round orange fruit with a dimply skin-like peel that you must remove before eating. It tastes of sweet and sour lazy summer days |
+| catfruit  | :black_large_square: | \$999.99 | an oblong fruit covered with thick black fuzz. It likes to sit on your keyboard and meow at you when you're trying to work |
 ```
 
 Table: Four fruits with color, price in imaginary dollars, and description
 
-| fruit  | color            | price    | description                 |
-| ----   | :-:              | ---:     | --------------------------- |
-| apple  | :red_square:     | \$2.05   | a short, round-ish red fruit that is slightly tapered at one end. It tastes sweet and crisp like a fall day |
-| pear   | :green_square:   | \$1.37   | a bell-shaped green fruit whose taste is sweet and mealy like a cold winter afternoon | 
-| orange | :orange_square:  | \$3.09   | a round orange fruit with a dimply skin-like peel that you must remove before eating. It tastes of sweet and sour lazy summer days |
-| devil  | :purple_square:  | \$666.00 | a round purple fruit with complex swirls along its skin. It is said to taste terrible and give you mysterious powers |
+| fruit     | color                | price    | description                 |
+| ----      | :-:                  | ---:     | --------------------------- |
+| apple     | :red_square:         | \$2.05   | a short, round-ish red fruit that is slightly tapered at one end. It tastes sweet and crisp like a fall day |
+| pear      | :green_square:       | \$1.37   | a bell-shaped green fruit whose taste is sweet and mealy like a cold winter afternoon    | 
+| orange    | :orange_square:      | \$3.09   | a round orange fruit with a dimply skin-like peel that you must remove before eating. It tastes of sweet and sour lazy summer days |
+| catfruit  | :black_large_square: | \$999.99 | an oblong fruit covered with thick black fuzz. It likes to sit on your keyboard and meow at you when you're trying to work |
 
 :::::::::::::::::::::::::::: challenge
 
@@ -621,7 +684,7 @@ Table: example table with overflowing text in three columns
 
 :::::::::::::: solution
 
-To get a rougly 1:5:1 ratio, you can use two separators for the short columns
+To get a roughly 1:5:1 ratio, you can use two separators for the short columns
 and ten separators for the wide column:
 
 ```markdown
@@ -647,7 +710,7 @@ Table: example table with overflowing text in three columns
 ### R Markdown tables
 
 If you are using R Markdown, then you can generate a table from packages like
-{knitr} or {gt}, but make sure to use `asis = TRUE` in your chunk option:
+{knitr} or {gt}, but make sure to use `results = 'asis'` in your chunk option:
 
 
 ````markdown
@@ -655,13 +718,13 @@ If you are using R Markdown, then you can generate a table from packages like
 ```{r fruits-table, results = 'asis'}
 dat <- data.frame(
   stringsAsFactors = FALSE,
-             fruit = c("apple", "pear", "orange", "devil"),
-             color = c("🟥", "🟩", "🟧", "🟪"),
-             price = c("$2.05", "$1.37", "$3.09", "$666.00"),
+             fruit = c("apple", "pear", "orange", "catfruit"),
+             color = c("🟥", "🟩", "🟧", "⬛"),
+             price = c("$2.05", "$1.37", "$3.09", "$999.99"),
        description = c("a short, round-ish red fruit that is slightly tapered at one end. It tastes sweet and crisp like a fall day",
                        "a bell-shaped green fruit whose taste is sweet and mealy like a cold winter afternoon",
                        "a round orange fruit with a dimply skin-like peel that you must remove before eating. It tastes of sweet and sour lazy summer days",
-                       "a round purple fruit with complex swirls along its skin. It is said to taste terrible and give you mysterious powers")
+                       "an oblong fruit covered with thick black fuzz. It likes to sit on your keyboard and meow at you when you're trying to work")
 )
 knitr::kable(dat, 
   format = "pipe", 
@@ -673,12 +736,12 @@ knitr::kable(dat,
 
 Table: Four fruits with color, price in imaginary dollars, and description
 
-|fruit  | color |   price|description                                                                                                                        |
-|:------|:-----:|-------:|:----------------------------------------------------------------------------------------------------------------------------------|
-|apple  |  🟥   |   $2.05|a short, round-ish red fruit that is slightly tapered at one end. It tastes sweet and crisp like a fall day                        |
-|pear   |  🟩   |   $1.37|a bell-shaped green fruit whose taste is sweet and mealy like a cold winter afternoon                                              |
-|orange |  🟧   |   $3.09|a round orange fruit with a dimply skin-like peel that you must remove before eating. It tastes of sweet and sour lazy summer days |
-|devil  |  🟪   | $666.00|a round purple fruit with complex swirls along its skin. It is said to taste terrible and give you mysterious powers               |
+|fruit    | color |   price|description                                                                                                                        |
+|:--------|:-----:|-------:|:----------------------------------------------------------------------------------------------------------------------------------|
+|apple    |  🟥   |   $2.05|a short, round-ish red fruit that is slightly tapered at one end. It tastes sweet and crisp like a fall day                        |
+|pear     |  🟩   |   $1.37|a bell-shaped green fruit whose taste is sweet and mealy like a cold winter afternoon                                              |
+|orange   |  🟧   |   $3.09|a round orange fruit with a dimply skin-like peel that you must remove before eating. It tastes of sweet and sour lazy summer days |
+|catfruit |  ⬛   | $999.99|an oblong fruit covered with thick black fuzz. It likes to sit on your keyboard and meow at you when you're trying to work         |
 
 
 
@@ -712,7 +775,7 @@ want to refer to), then you can place a link inside a separate file at the top o
 When working on a lesson in The Workbench, you do not need to think about what
 link the website will generate once it's built in order to write a link to
 different elements in the lesson. This is important because when you write
-links releative to your source files, these links will be predictable in any
+links relative to your source files, these links will be predictable in any
 context and allow you to easily detect when filenames change. 
 
 To reference other markdown files within the same lesson, use _relative paths
